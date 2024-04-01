@@ -6,23 +6,68 @@
         <groupId>com.frameboter</groupId>
         <artifactId>parent</artifactId>
         <version>0.1.0-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.frameboter</groupId>
-    <artifactId>template</artifactId>
+    <groupId>com.petometry</groupId>
+    <artifactId>petservice</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>template</name>
+    <name>pet service</name>
     <description>template</description>
     <properties>
         <java.version>21</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.frameboter</groupId>
+            <artifactId>database</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <rule>
+                            <element>BUNDLE</element>
+                            <limits>
+                                <limit>
+                                    <counter>INSTRUCTION</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.50</minimum>
+                                </limit>
+                            </limits>
+                        </rule>
+                    </rules>
+                </configuration>
             </plugin>
         </plugins>
         <finalName>service</finalName>
@@ -31,8 +76,8 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub frameboter Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/frameboter/${project.artifactId}</url>
+            <name>GitHub petometry Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/petometry/${project.artifactId}</url>
         </repository>
     </distributionManagement>
 

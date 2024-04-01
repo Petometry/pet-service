@@ -1,4 +1,5 @@
-package com.frameboter.template;
+package com.petometry.petservice;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

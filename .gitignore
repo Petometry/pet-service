@@ -1,53 +1,58 @@
-# Miscellaneous
-*.java.hsp
-*.sonarj
-*.sw*
-.DS_Store
-build.sh
-integration-repo
-ivy-cache
-argfile*
-activemq-data/
-classes/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
 
-# Log files
-jxl.log
-jmx.log
-derby.log
-
-# Gradle artifacts
-.gradle
-.gradletasknamecache
-/build
-buildSrc/build
-/spring-*/build
-/framework-*/build
-/integration-tests/build
-/src/asciidoc/build
-spring-test/test-output/
-
-# Maven artifacts
-pom.xml
-/target/
-
-# Eclipse artifacts, including WTP generated manifests
-bin
-.classpath
+# Eclipse m2e generated files
+# Eclipse Core
 .project
-.settings
-.springBeans
-spring-*/src/main/java/META-INF/MANIFEST.MF
-
-# IDEA artifacts and output dirs
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+*#
 *.iml
 *.ipr
 *.iws
-.idea
+*.jar
+*.sw?
+*~
+.#*
+.*.md.html
+.DS_Store
+.attach_pid*
+.factorypath
+.gradle
+.metadata
+.recommenders
+.settings
+.springBeans
+.vscode
+/code
+MANIFEST.MF
+_site/
+activemq-data
+bin
+build
+!/**/src/**/bin
+!/**/src/**/build
+build.log
+dump.rdb
+interpolated*.xml
+lib/
+manifest.yml
 out
-test-output
-atlassian-ide-plugin.xml
-
-# VS Code
-.vscode/
-
-cached-antora-playbook.yml
+overridedb.*
+target
+.flattened-pom.xml
+secrets.yml
+.gradletasknamecache
+.sts4-cache
+.git-hooks/
+.idea
+/target/
