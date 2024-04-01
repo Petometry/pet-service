@@ -16,10 +16,10 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private final HttpService httpService;
 
-    @Value("${backend.domain.base}")
+    @Value("${backend.domain.base:}")
     private String baseDomain;
 
-    @Value("${backend.domain.prefix}")
+    @Value("${backend.domain.prefix:}")
     private String urlPrefix;
 
     private static final String serviceName = "currencyservice.";
