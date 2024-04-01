@@ -9,10 +9,12 @@ import com.petometry.petservice.repository.model.PetShop;
 import com.petometry.petservice.rest.model.PetDetailsDto;
 import com.petometry.petservice.rest.model.PetOverviewDto;
 import com.petometry.petservice.rest.model.PetShopDto;
+import com.petometry.petservice.service.model.currency.CurrencyBalances;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,6 +35,8 @@ public class PetServiceImpl implements PetService {
 
     private final PetShopRepository petShopRepository;
 
+    private final CurrencyService currencyService;
+
     @Override
     public List<PetOverviewDto> getPets(String userId) {
 
@@ -41,7 +45,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public PetDetailsDto buyPet(String userId, Long petId) {
+    public PetDetailsDto buyPet(Jwt jwt, String userId, Long petId) {
 
         // todo: switch 5 for dynamic pet slots
         if (petRepository.countByOwnerId(userId) >= 5) {
@@ -49,15 +53,20 @@ public class PetServiceImpl implements PetService {
         }
 
         final Optional<Pet> petOptional = petRepository.findByIdAndPetShop_OwnerIdAndPetShop_ValidFor(petId, userId, LocalDate.now());
-        if (petOptional.isEmpty()){
+        if (petOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404));
         }
-
         final Pet pet = petOptional.get();
+//        Todo switch 10 with cost of pet once that is implemented
+        CurrencyBalances balances = currencyService.getBalances(jwt, userId);
+        if (balances.getGeocoin() < 10) {
+            throw new ResponseStatusException(HttpStatusCode.valueOf(403));
+        }
         pet.setOwnerId(userId);
         pet.setPetShop(null);
         Pet boughtPet = petRepository.save(pet);
-
+//      Todo switch 10 with cost of pet once that is implemented
+        currencyService.payServer(jwt, userId, 10L);
         return modelMapper.map(boughtPet, PetDetailsDto.class);
     }
 
@@ -65,7 +74,7 @@ public class PetServiceImpl implements PetService {
     public void deletePet(String userId, Long petId) {
 
         Optional<Pet> petOptional = petRepository.findByIdAndOwnerId(petId, userId);
-        if (petOptional.isEmpty()){
+        if (petOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404));
         }
         Pet pet = petOptional.get();

@@ -49,7 +49,7 @@ public class PetResource extends AbstractResource {
 
         String userId = getUserId(jwt);
         log.info("buyPet started for userId={} petId={}", userId, petId);
-        PetDetailsDto pet = petService.buyPet(userId, petId);
+        PetDetailsDto pet = petService.buyPet(jwt, userId, petId);
         log.info("buyPet finished for userId={} pet={}", userId, pet);
         return pet;
     }
