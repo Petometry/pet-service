@@ -14,4 +14,7 @@ public class PetOverviewDto {
     private Long id;
 
     private PetAppearanceDto appearance;
+
+    private Double hunger;
+
 }
