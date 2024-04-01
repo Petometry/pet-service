@@ -38,9 +38,9 @@ public class PetResource extends AbstractResource {
         return pets;
     }
 
-    @Operation(summary = "Creates a random Pet", description = "Creates a random pet and saves it to the curren user. Max number of pets = 5")
+    @Operation(summary = "Buys a pet", description = "Puts a pet of the users petshop into their petstore. Max number of pets = 5")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "pet created successfully"),
+            @ApiResponse(responseCode = "200", description = "pet bought successfully"),
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has too many pets already", content = @Content)
     })
@@ -54,7 +54,7 @@ public class PetResource extends AbstractResource {
         return pet;
     }
 
-    @Operation(summary = "Deletes a pet", description = "Deletes the pet wit hthe given id but only if the curren user owns it")
+    @Operation(summary = "Deletes a pet", description = "Deletes the pet with the given id but only if the curren user owns it")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "pet deleted successfully"),
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
