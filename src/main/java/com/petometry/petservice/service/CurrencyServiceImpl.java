@@ -22,7 +22,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Value("${backend.domain.prefix}")
     private String urlPrefix;
 
-    private static final String serviceName = "currencyservice.";
+    private static final String serviceName = "currency.";
 
     @Override
     public CurrencyBalances getBalances(Jwt jwt, String userid) {
