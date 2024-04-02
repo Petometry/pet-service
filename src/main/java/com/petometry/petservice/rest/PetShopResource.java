@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/petshops")
 public class PetShopResource extends AbstractResource {
+
     private final PetService petService;
 
+    // @formatter:off
     @GetMapping()
     public PetShopDto getPetShop(@AuthenticationPrincipal Jwt jwt){
-
+        // @formatter:on
         String userId = getUserId(jwt);
         log.info("getPetShop started for userId={}", userId);
         PetShopDto petShop = petService.getPetShop(userId);

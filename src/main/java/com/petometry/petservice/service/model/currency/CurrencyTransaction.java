@@ -13,5 +13,5 @@ public class CurrencyTransaction {
 
     private String target;
 
-    private Long value;
+    private Double value;
 }

@@ -8,5 +8,9 @@ public interface CurrencyService {
 
     CurrencyBalances getBalances(Jwt jwt, String userid);
 
-    CurrencyBalance payServer(Jwt jwt, String userId, Long value);
+    CurrencyBalance payServer(Jwt jwt, String userId, Double value);
+
+    CurrencyBalance getPayedByServer(Jwt jwt, String userId, double value);
+
+
 }

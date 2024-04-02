@@ -32,13 +32,26 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public CurrencyBalance payServer(Jwt jwt, String userId, Long value) {
+    public CurrencyBalance payServer(Jwt jwt, String userId, Double value) {
 
         CurrencyTransaction currencyTransaction = new CurrencyTransaction();
         currencyTransaction.setCurrency(CurrencyType.GEOCOIN);
         currencyTransaction.setTarget("SERVER");
         currencyTransaction.setValue(value);
         currencyTransaction.setSource(userId);
+
+        String url = urlPrefix + serviceName + baseDomain + "/transactions";
+        return httpService.sendPostRequest(url, jwt, currencyTransaction, CurrencyBalance.class);
+    }
+
+    @Override
+    public CurrencyBalance getPayedByServer(Jwt jwt, String userId, double value) {
+
+        CurrencyTransaction currencyTransaction = new CurrencyTransaction();
+        currencyTransaction.setCurrency(CurrencyType.GEOCOIN);
+        currencyTransaction.setTarget(userId);
+        currencyTransaction.setValue(value);
+        currencyTransaction.setSource("SERVER");
 
         String url = urlPrefix + serviceName + baseDomain + "/transactions";
         return httpService.sendPostRequest(url, jwt, currencyTransaction, CurrencyBalance.class);
