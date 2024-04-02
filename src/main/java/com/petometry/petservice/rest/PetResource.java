@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @Log4j2
 @RequiredArgsConstructor
+@RequestMapping("/pets")
 public class PetResource extends AbstractResource {
 
     private final PetService petService;
@@ -28,7 +29,7 @@ public class PetResource extends AbstractResource {
             @ApiResponse(responseCode = "200", description = "pets found successfully"),
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content)
     })
-    @GetMapping("/pets")
+    @GetMapping()
     public List<PetOverviewDto> getPets(@AuthenticationPrincipal Jwt jwt) {
 
         String userId = getUserId(jwt);
@@ -44,7 +45,7 @@ public class PetResource extends AbstractResource {
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has too many pets already", content = @Content)
     })
-    @PostMapping("/pets/{petId}")
+    @PostMapping("/{petId}")
     public PetDetailsDto buyPet(@AuthenticationPrincipal Jwt jwt,@PathVariable Long petId) {
 
         String userId = getUserId(jwt);
@@ -60,7 +61,7 @@ public class PetResource extends AbstractResource {
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
             @ApiResponse(responseCode = "404", description = "Pet not found", content = @Content)
     })
-    @DeleteMapping("/pets/{petId}")
+    @DeleteMapping("/{petId}")
     public void deletePet(@AuthenticationPrincipal Jwt jwt, @PathVariable Long petId) {
 
         String userId = getUserId(jwt);
