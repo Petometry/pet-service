@@ -87,6 +87,7 @@ public class PetServiceImpl implements PetService {
         Optional<PetShop> petShopOtional = petShopRepository.findByOwnerIdAndValidFor(userId, LocalDate.now());
         PetShop petShop;
         petShop = petShopOtional.orElseGet(() -> createPetShop(userId));
+        petShopRepository.deleteByOwnerIdAndValidForLessThan(userId, LocalDate.now());
 
         return modelMapper.map(petShop, PetShopDto.class);
     }
