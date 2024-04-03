@@ -66,7 +66,7 @@ public class PetServiceImpl implements PetService {
         pet.setPetShop(null);
         Pet boughtPet = petRepository.save(pet);
 //      Todo switch 10 with cost of pet once that is implemented
-        currencyService.payServer(jwt, userId, 10L);
+        currencyService.payServer(jwt, userId, 10.0);
         return modelMapper.map(boughtPet, PetDetailsDto.class);
     }
 
