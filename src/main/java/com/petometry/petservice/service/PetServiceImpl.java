@@ -97,7 +97,7 @@ public class PetServiceImpl implements PetService {
         petShop.setOwnerId(userId);
         petShop.setValidFor(LocalDate.now());
         List<Pet> pets = new ArrayList<>();
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i < 6; i++) {
             Pet pet = createRandomPet();
             pet.setPetShop(petShop);
             pets.add(pet);
