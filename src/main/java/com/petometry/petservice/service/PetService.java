@@ -15,4 +15,6 @@ public interface PetService {
     void deletePet(String userId, Long petId);
 
     PetShopDto getPetShop(String userId);
+
+    PetOverviewDto getPet(String userId, Long petId);
 }

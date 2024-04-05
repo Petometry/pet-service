@@ -92,6 +92,16 @@ public class PetServiceImpl implements PetService {
         return modelMapper.map(petShop, PetShopDto.class);
     }
 
+    @Override
+    public PetOverviewDto getPet(String userId, Long petId) {
+        Optional<Pet> petOptional = petRepository.findByIdAndOwnerId(petId, userId);
+        if (petOptional.isEmpty()){
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404));
+        }
+        Pet pet = petOptional.get();
+        return modelMapper.map(pet, PetDetailsDto.class);
+    }
+
     private PetShop createPetShop(String userId) {
         PetShop petShop = new PetShop();
         petShop.setOwnerId(userId);

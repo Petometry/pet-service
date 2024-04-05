@@ -41,6 +41,23 @@ public class PetResource extends AbstractResource {
     }
 
     // @formatter:off
+    @Operation(summary = "Retrieves a pet", description = "Retrieves the pet associated with the current user with the given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pet found successfully"),
+            @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User does not own a pet with this id", content = @Content)
+    })
+    @GetMapping("/{petId}")
+    public PetOverviewDto getPet(@AuthenticationPrincipal Jwt jwt, @PathVariable("petId") Long petId) {
+        // @formatter:on
+        String userId = getUserId(jwt);
+        log.info("getPet started for userId=" + userId);
+        PetOverviewDto pet = petService.getPet(userId, petId);
+        log.info("getPet finished for userId={} pet={}", getUserId(jwt), pet);
+        return pet;
+    }
+
+    // @formatter:off
     @Operation(summary = "Buys a pet", description = "Puts a pet of the users petshop into their petstore. Max number of pets = 5")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "pet bought successfully"), @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content), @ApiResponse(responseCode = "403", description = "User has too many pets already", content = @Content)})
     @PostMapping("/{petId}")
