@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.petometry</groupId>
-    <artifactId>petservice</artifactId>
+    <artifactId>pet-service</artifactId>
     <version>0.1.0</version>
     <name>pet service</name>
     <description>petservice</description>
