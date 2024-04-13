@@ -2,7 +2,7 @@ package com.petometry.petservice.service;
 
 import com.frameboter.service.HttpService;
 import com.petometry.petservice.service.model.currency.CurrencyBalance;
-import com.petometry.petservice.service.model.currency.CurrencyBalances;
+import com.petometry.petservice.service.model.currency.CurrencyGeocoinsBalances;
 import com.petometry.petservice.service.model.currency.CurrencyTransaction;
 import com.petometry.petservice.service.model.currency.CurrencyType;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Value("${backend.domain.prefix}")
     private String urlPrefix;
 
-    private static final String serviceName = "currency.";
+    private static final String SERVICE_NAME = "currency.";
 
     @Override
-    public CurrencyBalances getBalances(Jwt jwt, String userid) {
+    public CurrencyGeocoinsBalances getBalances(Jwt jwt, String userid) {
 
-        String url = urlPrefix + serviceName + baseDomain + "/balances";
-        return httpService.sendGetRequest(url, jwt, CurrencyBalances.class);
+        String url = urlPrefix + SERVICE_NAME + baseDomain + "/geocoins";
+        return httpService.sendGetRequest(url, jwt, CurrencyGeocoinsBalances.class);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         currencyTransaction.setValue(value);
         currencyTransaction.setSource(userId);
 
-        String url = urlPrefix + serviceName + baseDomain + "/transactions";
+        String url = urlPrefix + SERVICE_NAME + baseDomain + "/transactions";
         return httpService.sendPostRequest(url, jwt, currencyTransaction, CurrencyBalance.class);
     }
 
@@ -53,7 +53,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         currencyTransaction.setValue(value);
         currencyTransaction.setSource("SERVER");
 
-        String url = urlPrefix + serviceName + baseDomain + "/transactions";
+        String url = urlPrefix + SERVICE_NAME + baseDomain + "/transactions";
         return httpService.sendPostRequest(url, jwt, currencyTransaction, CurrencyBalance.class);
     }
 

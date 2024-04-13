@@ -9,7 +9,7 @@ import com.petometry.petservice.repository.model.PetShop;
 import com.petometry.petservice.rest.model.PetDetailsDto;
 import com.petometry.petservice.rest.model.PetOverviewDto;
 import com.petometry.petservice.rest.model.PetShopDto;
-import com.petometry.petservice.service.model.currency.CurrencyBalances;
+import com.petometry.petservice.service.model.currency.CurrencyGeocoinsBalances;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -58,7 +58,7 @@ public class PetServiceImpl implements PetService {
         }
         final Pet pet = petOptional.get();
 //        Todo switch 10 with cost of pet once that is implemented
-        CurrencyBalances balances = currencyService.getBalances(jwt, userId);
+        CurrencyGeocoinsBalances balances = currencyService.getBalances(jwt, userId);
         if (balances.getGeocoin() < 10) {
             throw new ResponseStatusException(HttpStatusCode.valueOf(403));
         }
