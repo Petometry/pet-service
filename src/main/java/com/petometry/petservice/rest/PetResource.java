@@ -19,18 +19,20 @@ import java.util.List;
 @RestController
 @Log4j2
 @RequiredArgsConstructor
+@RequestMapping("/pets")
 public class PetResource extends AbstractResource {
 
     private final PetService petService;
 
+    // @formatter:off
     @Operation(summary = "Retrieves pets", description = "Retrieves all the pets associated with the current user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "pets found successfully"),
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content)
     })
-    @GetMapping("/pets")
+    @GetMapping()
     public List<PetOverviewDto> getPets(@AuthenticationPrincipal Jwt jwt) {
-
+        // @formatter:on
         String userId = getUserId(jwt);
         log.info("getPets started for userId=" + userId);
         List<PetOverviewDto> pets = petService.getPets(userId);
@@ -38,31 +40,42 @@ public class PetResource extends AbstractResource {
         return pets;
     }
 
-    @Operation(summary = "Creates a random Pet", description = "Creates a random pet and saves it to the curren user. Max number of pets = 5")
+    // @formatter:off
+    @Operation(summary = "Retrieves a pet", description = "Retrieves the pet associated with the current user with the given id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "pet created successfully"),
+            @ApiResponse(responseCode = "200", description = "Pet found successfully"),
             @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
-            @ApiResponse(responseCode = "403", description = "User has too many pets already", content = @Content)
+            @ApiResponse(responseCode = "404", description = "User does not own a pet with this id", content = @Content)
     })
-    @PostMapping("/pets/{petId}")
-    public PetDetailsDto buyPet(@AuthenticationPrincipal Jwt jwt,@PathVariable Long petId) {
+    @GetMapping("/{petId}")
+    public PetOverviewDto getPet(@AuthenticationPrincipal Jwt jwt, @PathVariable("petId") Long petId) {
+        // @formatter:on
+        String userId = getUserId(jwt);
+        log.info("getPet started for userId=" + userId);
+        PetOverviewDto pet = petService.getPet(userId, petId);
+        log.info("getPet finished for userId={} pet={}", getUserId(jwt), pet);
+        return pet;
+    }
 
+    // @formatter:off
+    @Operation(summary = "Buys a pet", description = "Puts a pet of the users petshop into their petstore. Max number of pets = 5")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "pet bought successfully"), @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content), @ApiResponse(responseCode = "403", description = "User has too many pets already", content = @Content)})
+    @PostMapping("/{petId}")
+    public PetDetailsDto buyPet(@AuthenticationPrincipal Jwt jwt, @PathVariable Long petId) {
+        // @formatter:on
         String userId = getUserId(jwt);
         log.info("buyPet started for userId={} petId={}", userId, petId);
-        PetDetailsDto pet = petService.buyPet(userId, petId);
+        PetDetailsDto pet = petService.buyPet(jwt, userId, petId);
         log.info("buyPet finished for userId={} pet={}", userId, pet);
         return pet;
     }
 
-    @Operation(summary = "Deletes a pet", description = "Deletes the pet wit hthe given id but only if the curren user owns it")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "pet deleted successfully"),
-            @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Pet not found", content = @Content)
-    })
-    @DeleteMapping("/pets/{petId}")
+    // @formatter:off
+    @Operation(summary = "Deletes a pet", description = "Deletes the pet with the given id but only if the curren user owns it")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "pet deleted successfully"), @ApiResponse(responseCode = "401", description = "User is not logged in via Keycloak", content = @Content), @ApiResponse(responseCode = "404", description = "Pet not found", content = @Content)})
+    @DeleteMapping("/{petId}")
     public void deletePet(@AuthenticationPrincipal Jwt jwt, @PathVariable Long petId) {
-
+        // @formatter:on
         String userId = getUserId(jwt);
         log.info("deletePet started for userId={} petId={}", userId, petId);
         petService.deletePet(userId, petId);
