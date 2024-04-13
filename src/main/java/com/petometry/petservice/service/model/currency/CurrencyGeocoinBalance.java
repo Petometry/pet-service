@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class CurrencyGeocoinsBalances {
+public class CurrencyGeocoinBalance {
 
     private Double geocoin;
 }

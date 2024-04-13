@@ -1,12 +1,12 @@
 package com.petometry.petservice.service;
 
 import com.petometry.petservice.service.model.currency.CurrencyBalance;
-import com.petometry.petservice.service.model.currency.CurrencyGeocoinsBalances;
+import com.petometry.petservice.service.model.currency.CurrencyGeocoinBalance;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface CurrencyService {
 
-    CurrencyGeocoinsBalances getBalances(Jwt jwt, String userid);
+    CurrencyGeocoinBalance getGeoCoinBalance(Jwt jwt, String userid);
 
     CurrencyBalance payServer(Jwt jwt, String userId, Double value);
 

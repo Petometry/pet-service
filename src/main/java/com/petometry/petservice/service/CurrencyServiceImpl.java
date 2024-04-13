@@ -2,7 +2,7 @@ package com.petometry.petservice.service;
 
 import com.frameboter.service.HttpService;
 import com.petometry.petservice.service.model.currency.CurrencyBalance;
-import com.petometry.petservice.service.model.currency.CurrencyGeocoinsBalances;
+import com.petometry.petservice.service.model.currency.CurrencyGeocoinBalance;
 import com.petometry.petservice.service.model.currency.CurrencyTransaction;
 import com.petometry.petservice.service.model.currency.CurrencyType;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +25,10 @@ public class CurrencyServiceImpl implements CurrencyService {
     private static final String SERVICE_NAME = "currency.";
 
     @Override
-    public CurrencyGeocoinsBalances getBalances(Jwt jwt, String userid) {
+    public CurrencyGeocoinBalance getGeoCoinBalance(Jwt jwt, String userid) {
 
         String url = urlPrefix + SERVICE_NAME + baseDomain + "/geocoins";
-        return httpService.sendGetRequest(url, jwt, CurrencyGeocoinsBalances.class);
+        return httpService.sendGetRequest(url, jwt, CurrencyGeocoinBalance.class);
     }
 
     @Override
