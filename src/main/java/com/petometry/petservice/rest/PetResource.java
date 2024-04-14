@@ -81,4 +81,5 @@ public class PetResource extends AbstractResource {
         petService.deletePet(userId, petId);
         log.info("deletePet finished for userId=" + getUserId(jwt));
     }
+
 }

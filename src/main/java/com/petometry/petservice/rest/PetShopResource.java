@@ -2,7 +2,7 @@ package com.petometry.petservice.rest;
 
 import com.frameboter.rest.AbstractResource;
 import com.petometry.petservice.rest.model.PetShopDto;
-import com.petometry.petservice.service.PetService;
+import com.petometry.petservice.service.PetShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/petshops")
 public class PetShopResource extends AbstractResource {
 
-    private final PetService petService;
+    private final PetShopService petShopService;
 
     // @formatter:off
     @GetMapping()
@@ -25,7 +25,7 @@ public class PetShopResource extends AbstractResource {
         // @formatter:on
         String userId = getUserId(jwt);
         log.info("getPetShop started for userId={}", userId);
-        PetShopDto petShop = petService.getPetShop(userId);
+        PetShopDto petShop = petShopService.getPetShop(userId);
         log.info("getPetShop finished for userId={} petShop={}", userId, petShop);
         return petShop;
     }
