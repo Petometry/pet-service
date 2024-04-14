@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Setter
@@ -26,9 +27,18 @@ public class Pet {
     @JoinColumn(name = "appearance_id", nullable = false)
     private PetAppearance appearance;
 
+    @Column(name = "health", nullable = false)
+    private Double health;
+
+    @Column(name = "hunger", nullable = false)
+    private Double hunger;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pet_shop_id")
     private PetShop petShop;
+
+    @Column(name = "last_seen", nullable = false)
+    private LocalDateTime lastSeen;
 
     @Override
     public final boolean equals(Object o) {

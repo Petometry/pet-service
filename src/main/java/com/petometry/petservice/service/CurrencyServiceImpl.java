@@ -1,10 +1,7 @@
 package com.petometry.petservice.service;
 
 import com.frameboter.service.HttpService;
-import com.petometry.petservice.service.model.currency.CurrencyBalance;
-import com.petometry.petservice.service.model.currency.CurrencyGeocoinBalance;
-import com.petometry.petservice.service.model.currency.CurrencyTransaction;
-import com.petometry.petservice.service.model.currency.CurrencyType;
+import com.petometry.petservice.service.model.currency.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -45,16 +42,17 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public CurrencyBalance getPayedByServer(Jwt jwt, String userId, double value) {
+    public CurrencyPetFoodBalances getPetfoodBalances(Jwt jwt) {
 
-        CurrencyTransaction currencyTransaction = new CurrencyTransaction();
-        currencyTransaction.setCurrency(CurrencyType.GEOCOIN);
-        currencyTransaction.setTarget(userId);
-        currencyTransaction.setValue(value);
-        currencyTransaction.setSource("SERVER");
+        String url = urlPrefix + SERVICE_NAME + baseDomain + "/petfoods";
+        return httpService.sendGetRequest(url, jwt, CurrencyPetFoodBalances.class);
+    }
 
-        String url = urlPrefix + SERVICE_NAME + baseDomain + "/transactions";
-        return httpService.sendPostRequest(url, jwt, currencyTransaction, CurrencyBalance.class);
+    @Override
+    public CurrencyPetFoodBalances updatePetFoodBalances(Jwt jwt, CurrencyPetFoodBalances currencyPetFoodBalances) {
+
+        String url = urlPrefix + SERVICE_NAME + baseDomain + "/petfoods";
+        return httpService.sendPutRequest(url, jwt, currencyPetFoodBalances, CurrencyPetFoodBalances.class);
     }
 
 

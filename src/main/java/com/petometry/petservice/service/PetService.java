@@ -1,7 +1,7 @@
 package com.petometry.petservice.service;
 
-import com.petometry.petservice.rest.model.PetShopDto;
 import com.petometry.petservice.rest.model.PetDetailsDto;
+import com.petometry.petservice.rest.model.PetFeeding;
 import com.petometry.petservice.rest.model.PetOverviewDto;
 import org.springframework.security.oauth2.jwt.Jwt;
 
@@ -14,7 +14,7 @@ public interface PetService {
 
     void deletePet(String userId, Long petId);
 
-    PetShopDto getPetShop(String userId);
-
     PetOverviewDto getPet(String userId, Long petId);
+
+    PetFeeding feedPet(Jwt jwt, String userId, PetFeeding petFeeding);
 }
