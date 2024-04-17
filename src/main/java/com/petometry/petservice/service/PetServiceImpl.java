@@ -133,6 +133,7 @@ public class PetServiceImpl implements PetService {
 
         PetFeeding actualPetFeeding = SerializationUtils.clone(petFeeding);
         actualPetFeeding.setAmount(actualFeedingAmount);
+        actualPetFeeding.setFoodType(pet.getAppearance().getGeometry());
         return actualPetFeeding;
     }
 
