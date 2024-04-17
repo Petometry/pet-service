@@ -115,7 +115,7 @@ public class PetServiceImpl implements PetService {
         if(depletedHunger <= petFeeding.getAmount()){
             actualFeedingAmount = depletedHunger;
         }else {
-            actualFeedingAmount = depletedHunger - petFeeding.getAmount();
+            actualFeedingAmount = petFeeding.getAmount();
         }
 
         CurrencyPetFoodBalances updatedPetfoodBalances = SerializationUtils.clone(petfoodBalances);
