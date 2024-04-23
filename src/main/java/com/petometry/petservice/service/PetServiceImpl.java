@@ -152,7 +152,7 @@ public class PetServiceImpl implements PetService {
     private Pet checkPetHunger(Pet pet) {
         // * - to make math easier to understand
         double hoursSinceLastSeen = LocalDateTime.now().until(pet.getLastSeen(), ChronoUnit.MILLIS) / -3_600_000.000000000000;
-        Double hungerLossSinceLastSeen = hoursSinceLastSeen * (150 / 24);
+        Double hungerLossSinceLastSeen = hoursSinceLastSeen * (150.0 / 24.0);
         pet.setHunger(pet.getHunger() - hungerLossSinceLastSeen);
         pet.setLastSeen(LocalDateTime.now());
         if (pet.getHunger() >= 0.00){
