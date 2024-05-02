@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.petometry</groupId>
     <artifactId>pet-service</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0-SNAPSHOT</version>
     <name>pet service</name>
     <description>petservice</description>
     <properties>
